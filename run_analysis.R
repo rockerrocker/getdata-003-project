@@ -25,7 +25,7 @@ rm(Xtest, Ytest, subjTest) # Clear from memory
 
 mergeData <- rbind(trainMerge, testMerge)
 rm(trainMerge, testMerge) # No longer required. Clear memory.
-colnames(mergeData) <- c("y", "subject", feat) # ADJUST NAMES
+colnames(mergeData) <- c("activity", "subject", feat)
 
 ## Part 2 - Extract specific measurements
 # Create logical vector showing which features contain 'mean()' or 
@@ -35,8 +35,17 @@ featRegex <- grepl(pattern, feat)
 mergeData <- mergeData[featRegex]
 
 ## Part 3 - Add descriptive activity names to rows
-# not very clear!!! - for Readme?
-# Load activity labels
+# Load activity labels and format
 actLabels <- read.table("./data/activity_labels.txt")
-actLabels <- actLabels[,2] # remove first column which only has row numbers
-actLabels <- as.vector(actLabels)
+actLabels[,2] <- gsub("_", "", tolower(as.character(actLabels[,2])))
+# Replace numbers with labels and update the column heading
+mergeData[,1] <- actLabels[mergeData[,1], 2]
+colnames(mergeData)[1] <- "activity"
+
+## Part 4 - Appropriately label the dataset with descriptive names
+# This was done in the last part of Part 1 above ('colnames')
+
+## Part 5 - Create a tidy dataset with average for each activity/subject
+# This part was not completed as I ran out of time.
+# In order to submit a sample of my data I exported the first 100 rows.
+write.table(mergeData[1:100,], "datasetOfVariableAverages.csv")
