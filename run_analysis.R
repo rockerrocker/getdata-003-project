@@ -40,7 +40,6 @@ actLabels <- read.table("./data/activity_labels.txt")
 actLabels[,2] <- gsub("_", "", tolower(as.character(actLabels[,2])))
 # Replace numbers with labels and update the column heading
 mergeData[,1] <- actLabels[mergeData[,1], 2]
-colnames(mergeData)[1] <- "activity"
 
 ## Part 4 - Appropriately label the dataset with descriptive names
 # This was done in the last part of Part 1 above ('colnames')
@@ -48,4 +47,4 @@ colnames(mergeData)[1] <- "activity"
 ## Part 5 - Create a tidy dataset with average for each activity/subject
 # This part was not completed as I ran out of time.
 # In order to submit a sample of my data I exported the first 100 rows.
-write.table(mergeData[1:100,], "datasetOfVariableAverages.csv")
+write.table(mergeData[1:100,], "datasetOfVariableAverages.txt")
